@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+  </div>
+
+  <!-- id를 지우고 위의 div를 복사해오면 결과는 어떻게 될까? -->
+  <!-- 선택되지 않았으므로 그냥 {{ message }} 그대로 출력됨 -->
+  <div>
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+  </div>
+
+  <!-- 그럼 다시 app id를 설정해주면 되지 않나? 응 안됨 -->
+  <!-- 새로운 id 설정하고 Vue 인스턴스도 새로 만들어야함 -->
+  <div id="app2">
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+    <p>{{ message }}</p>
+    <p>{{ movie }}</p>
+  </div>
+
+  <!-- Vue CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    // Vue 인스턴스 생성
+    const app = new Vue({
+      el: '#app', // app id를 가진 태그와 연결(mount)
+      data: {     // data도 객체이므로 중괄호 사용
+        message: '',
+        movie: '아바타',
+      },
+      methods: {  // methods도 객체
+        print: function() {
+          console.log('print입니다')
+        },
+        // app.print()로 메서드 사용
+        bye() {
+          this.message = this.message + 'a'
+        },
+        // data가 바뀌면 알아서 화면도 바꿔줌
+        // [단방향] script에서 message 변경하면 div 바뀜
+        // but div에서 message 변경하면 script 바뀌지 않음
+        arrowBye: () => {
+          this.message = 'Arrow Function'
+          console.log(this)
+        },
+        // arrowFunction은 this가 상위 객체 Window를 가리키게 됨
+        // 호출은 가능하지만 Vue의 message가 아닌 Window의 message가 바뀜
+        // -> 메서드를 정의할 때 화살표함수 사용하면 안됨!
+      }
+    })
+    
+    const app2 = new Vue({
+      el: '#app2',
+      data: {
+        message: '',
+        movie: '아바타',
+      },
+      methods: {
+        print: function() {
+          console.log('print입니다')
+        },
+        bye() {
+          this.message = this.message + 'a'
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

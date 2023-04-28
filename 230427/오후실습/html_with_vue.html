@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p id="name">name : </p>
+        <!-- v-model 속성이 Vue 인스턴스와 연결됨 (양방향) -->
+        <input id="inputname" type="text" v-model="msg">
+        {{msg}}
+    </div>
+
+    <!-- 라이브러리를 먼저 설치해야 아래쪽 script에서 오류가 나지 않음 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ 
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                // 단방향 바인딩 -> Vue 인스턴스 값을 바꾸면 DOM에 반영
+                // DOM 바뀌면 Vue 인스턴스에는 적용X
+                msg: 'hi',
+                find : function (){
+                    console.log(this.msg) // 메서드로 호출 -> hi
+                }
+            },
+            methods: {
+                print() {
+                    console.log(this.msg) // 메서드로 호출 -> hi
+                },
+                print2: () => {
+                    console.log(this.msg) // arrowFunction은 상위 객체인 Window를 가리키는데 msg가 없음 -> undefined
+                    // methods의 중괄호는 scope가 아님
+                }
+            },
+        })
+
+        console.log(app)
+        console.log(this) // 일반 함수로 호출 -> Window
+        // this 바인딩 : 함수가 호출될 때가 중요
+
+    </script>
+</body>
+</html>
