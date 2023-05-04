@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{ rawHTML }}</p>
+        <span v-html="rawHTML"></span>
+        <br>
+        <p>{{ msg.split(' ') }}</p>
+        <!-- toggle이 자주 이루어질 것 같으면 show (expensive initial load, cheap toggle)-->
+        <p v-show="isShow">{{ msg }}</p>
+        <p v-if="isIf">{{ msg }}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: "A B C D E",
+                rawHTML: '<span style="color:red">빨간 글씨</span>',
+                isShow: false,
+                isIf: false,
+            }
+        })
+
+    </script>
+
+</body>
+</html>
